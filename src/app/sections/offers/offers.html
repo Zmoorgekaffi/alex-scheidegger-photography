@@ -1,0 +1,25 @@
+<section id="angebote" class="px-6 md:px-10 py-16 md:py-24">
+  <div class="max-w-[1920px] mx-auto">
+    <div class="mb-10 max-w-[560px]">
+      <h2 class="m-0 mb-3.5 font-serif font-medium text-3xl md:text-[40px] text-ink">Angebote</h2>
+      <p class="m-0 text-[15px] leading-[1.7] text-ink-soft">
+        Jedes Shooting ist anders. Hier ein Überblick über meine Angebote. Individuelle Anfragen sind jederzeit willkommen.
+      </p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-7">
+      @for (offer of offers; track offer.title) {
+        <a
+          href="#kontakt"
+          (click)="selectOffer(offer.title)"
+          class="offer-card bg-card-and-form border border-ink/12 px-8 py-10 flex flex-col gap-4.5"
+        >
+          <h3 class="m-0 font-serif font-medium text-2xl">{{ offer.title }}</h3>
+          <p class="m-0 text-[14.5px] leading-[1.7] text-ink-soft grow">{{ offer.description }}</p>
+          <div class="border-t border-ink/15 pt-4 text-[13px] tracking-[0.04em] text-ink">
+            Für dieses Angebot anfragen →
+          </div>
+        </a>
+      }
+    </div>
+  </div>
+</section>

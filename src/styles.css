@@ -1,0 +1,149 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: 'Cormorant Garamond', serif;
+  --font-sans: 'Jost', sans-serif;
+
+  /*
+   * Palette — strictly black / white / gray. Names describe the ROLE a
+   * color plays so any component can pick the right one without guessing:
+   *
+   *   paper          – light surfaces: page background, header/footer
+   *   card-and-form  – offer cards & the contact form panel (translucent
+   *                    dark gray, lets the paper background show through)
+   *   ink            – primary text, headings, deco accents (corner
+   *                    frames, CTAs), and dark surfaces (lightbox backdrop)
+   *   ink-soft       – secondary/body copy, mid-strength borders & dividers
+   *   stone          – muted/tertiary text, placeholders, soft accents
+   *
+   * Opacity is applied per-use with Tailwind's slash modifier (e.g. bg-ink/40)
+   * instead of extra derived tokens, so this stays a true 4-color palette.
+   */
+  --color-paper: #ffffff;
+  --color-card-and-form: rgba(30, 30, 30, 0.1);
+  --color-ink: #000000;
+  --color-ink-soft: #464646;
+  --color-stone: #9c9c9c;
+}
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-ink) var(--color-paper);
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+#galerie,
+#angebote,
+#kontakt {
+  scroll-margin-top: 88px;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--color-paper);
+  color: var(--color-ink);
+}
+
+/* Custom scrollbar: fine black-bordered thumb on a paper-white track. */
+::-webkit-scrollbar {
+  width: 12px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-paper);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-paper);
+  border: 1px solid var(--color-ink);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-ink);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.nav-link {
+  color: var(--color-ink-soft);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: color 0.2s ease;
+}
+.nav-link:hover {
+  color: var(--color-ink);
+}
+
+.btn-primary {
+  background: transparent;
+  border: 1px solid var(--color-ink);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+.btn-primary:hover {
+  background: var(--color-ink);
+  border-color: var(--color-ink);
+  color: var(--color-paper);
+}
+
+.gallery-tile {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  /* Height comes from an explicit grid-row-end span set in gallery.ts
+     (a placeholder ratio until the lazy image loads, then its true ratio) —
+     without a reserved span the tile would collapse to ~0 height, the
+     browser would load all images at once, and scroll reveals would fire
+     immediately for all of them. */
+  background: color-mix(in srgb, var(--color-ink) 4%, var(--color-paper));
+}
+.gallery-tile img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: transform 0.4s ease, opacity 0.3s ease;
+}
+.gallery-tile.is-loaded img {
+  opacity: 1;
+}
+.gallery-tile:hover img {
+  transform: scale(1.04);
+}
+.gallery-tile .tile-overlay {
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+.gallery-tile:hover .tile-overlay {
+  opacity: 1;
+}
+
+.offer-card {
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+.offer-card:hover {
+  border-color: var(--color-ink);
+  transform: translateY(-4px);
+}
+
+input,
+textarea {
+  font-family: var(--font-sans);
+}
+input::placeholder,
+textarea::placeholder {
+  color: var(--color-stone);
+}

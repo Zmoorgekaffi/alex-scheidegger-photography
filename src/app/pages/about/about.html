@@ -1,0 +1,83 @@
+<section class="relative isolate max-w-[1920px] mx-auto px-6 md:px-10 py-16 md:py-24 grid grid-cols-1 min-[1330px]:grid-cols-[0.9fr_1.1fr] gap-12 min-[1330px]:gap-20 items-start">
+  <!-- Unter 1330px: Foto vollflächig hinter dem Text mit weissem Overlay. Ab 1330px: Foto links im Eckrahmen. -->
+  <div class="absolute inset-0 -z-10 min-[1330px]:z-auto min-[1330px]:sticky min-[1330px]:top-28">
+    <div class="hidden min-[1330px]:block absolute -top-4 -left-4 w-10 h-10 border-t border-l border-ink"></div>
+    <div class="hidden min-[1330px]:block absolute -bottom-4 -right-4 w-10 h-10 border-b border-r border-ink"></div>
+    <img
+      src="du-hast-den-datei-namen-entdeckt.jpg"
+      alt="Porträt von Alex Scheidegger"
+      class="block w-full h-full object-cover object-[50%_25%] min-[1330px]:h-[75vh] min-[1330px]:object-[0_-2.5rem]"
+      loading="lazy"
+    >
+    <div
+      class="absolute inset-0 bg-paper/75 min-[1330px]:hidden transition-opacity duration-300 motion-reduce:transition-none"
+      [class.opacity-0]="!showText()"
+      aria-hidden="true"
+    ></div>
+  </div>
+
+  <div
+    class="flex flex-col gap-6 transition-opacity duration-300 motion-reduce:transition-none"
+    [class.max-[1329px]:opacity-0]="!showText()"
+    [class.max-[1329px]:pointer-events-none]="!showText()"
+    [attr.aria-hidden]="showText() ? null : 'true'"
+  >
+    <h2 class="m-0 font-serif font-medium text-3xl md:text-[40px] text-ink">Über mich</h2>
+    <p class="m-0 font-serif text-2xl md:text-[28px] leading-snug text-ink">
+      Menschen in ihrem Licht, in ihrem Moment, in ihrer Welt. Genau das ist es, was mich interessiert.
+    </p>
+
+    <div class="flex flex-col gap-4 max-w-[560px] text-[15px] leading-[1.75] text-ink-soft">
+      <p class="m-0">
+        Hi, ich bin Alex. Tüftler und Musikliebhaber. Am liebsten bin ich dort, wo etwas los ist und Menschen zusammenkommen.
+      </p>
+      <p class="m-0">Die Kamera? Ist eigentlich immer dabei.</p>
+      <p class="m-0">
+        Mal digital, mal analog. Mal laut, mitten auf der Tanzfläche, mal ganz ruhig bei einem Portrait.
+        Dabei gilt für mich: Perfektion und Ehrlichkeit. Ein Bild muss sitzen, technisch und im Gefühl.
+      </p>
+      <p class="m-0">
+        Vor meiner Kamera musst du nichts spielen. Ich rede mit dir, lache mit dir und drücke ab, wenn du ganz du selbst bist.
+        Und wenn die Kamera mal Pause hat? Dann produziere ich Musik, mache Sport oder treffe mich mit Freunden.
+      </p>
+    </div>
+
+    <div class="border-t border-ink/15 pt-6 max-w-[560px]">
+      <h3 class="m-0 mb-3 text-[12.5px] font-normal tracking-[0.06em] uppercase text-ink-soft">Was ich fotografiere</h3>
+      <ul class="m-0 p-0 list-none flex flex-wrap gap-x-3 gap-y-1 font-serif text-xl text-ink">
+        @for (topic of topics; track topic; let last = $last) {
+          <li>{{ topic }}@if (!last) { <span class="text-stone ml-3">·</span> }</li>
+        }
+      </ul>
+    </div>
+
+    <div class="border-t border-ink/15 pt-6 max-w-[560px]">
+      <h3 class="m-0 mb-3 text-[12.5px] font-normal tracking-[0.06em] uppercase text-ink-soft">Referenzen</h3>
+      <ul class="m-0 p-0 list-none flex flex-col gap-2 text-[14.5px] leading-[1.7] text-ink-soft">
+        @for (reference of references; track reference) {
+          <li>{{ reference }}</li>
+        }
+      </ul>
+    </div>
+  </div>
+
+  <div class="flex items-center justify-between gap-4 min-[1330px]:col-span-2">
+    <a href="/" class="nav-link" [class.max-[1329px]:text-paper!]="!showText()">← Zurück zur Startseite</a>
+    <button
+      type="button"
+      class="min-[1330px]:hidden p-2 -m-2 text-ink-soft hover:text-ink transition-colors cursor-pointer"
+      [attr.aria-label]="showText() ? 'Text ausblenden' : 'Text einblenden'"
+      [attr.aria-pressed]="!showText()"
+      [class.max-[1329px]:text-paper!]="!showText()"
+      (click)="toggleText()"
+    >
+      <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z" />
+        <circle cx="12" cy="12" r="3" />
+        @if (showText()) {
+          <path d="M3 3l18 18" />
+        }
+      </svg>
+    </button>
+  </div>
+</section>
